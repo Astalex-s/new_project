@@ -1,10 +1,41 @@
 'use strict';
-let a = 10;
+// let a = 10;
 
-var leftBorderWidth = 1;
-let second = 2;
-const pi = 3.14;
-console.log(second);
+// var leftBorderWidth = 1;
+// let second = 2;
+// const pi = 3.14;
+
+let num = 0;
+
+if (num < 49) {
+    console.log("Не верно!");
+}   else if (num > 100) { 
+        console.log("Слишком много!");
+}   else { 
+        console.log("Верно!");
+}  
+
+(num = 50) ? console.log("Верно!") : console.log("Не верно!");
+
+switch(num) {
+    case num < 40:
+        console.log("Не верно!");
+        break;
+    case num > 100:
+        console.log("Слишком много!");
+        break;
+    case num > 80:
+        console.log("Все еще слишком много!");
+        break;
+    case 50:
+        console.log("Верно!");
+        break;
+    default:
+        console.log("Что-то пошло не так!");
+        break;
+}
+     
+
 
 // типы данных
 /*var number = 5;
