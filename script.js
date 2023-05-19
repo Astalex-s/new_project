@@ -6,7 +6,6 @@ let second = 2;
 const pi = 3.14;
 console.log(second);
 
-confirm('insert name')
 // типы данных
 /*var number = 5;
 var string = "Hello!";
