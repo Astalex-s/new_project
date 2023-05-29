@@ -1,5 +1,17 @@
-let money = +prompt('Ваш бюджет на месяц?', '');
+//'use strict';
+
+let money, time;
+
+function start() {
+    money = +prompt('Ваш бюджет на месяц?', '');
     time = prompt('Введите дату в формате YYYY-MM-DD', '');
+// isNaN - выводит значение True если в переменной не числовое значение.
+    while (isNaN(money) || money == "" || money == null) {
+        money = +prompt('Ваш бюджет на месяц?', '');
+    }
+}
+
+start();
 
 let appData = {
     budget: money,
@@ -7,67 +19,64 @@ let appData = {
     optionalExpenses: {},
     income: [], 
     timeData: time,
-    savings: false
+    savings: true
 };
 
-for (let i = 0; i < 2; i++) {
-    let a = prompt("Введите обязательную статью расходов в этом месяце", '');
-        b = prompt("Во сколько обойдется?", '');
-    
-    if ( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null 
-    && a != '' && b != '' && a.length < 50) {
-        console.log('done')
-        appData.expenses[a] = b;
-    } else {
-        console.log('bad result');
-        i--;
-    }
-    
-};
-// let i = 0;
-// while (i < 2) {
-//         let a = prompt("Введите обязательную статью расходов в этом месяце", '');
-//             b = prompt("Во сколько обойдется?", '');
+function chooseExpenses() {
+    for (let i = 0; i < 2; i++) {
+        let a = prompt("Введите обязательную статью расходов в этом месяце", '');
+            b = prompt("Во сколько обойдется?", '');
         
-//         if ( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null 
-//         && a != '' && b != '' && a.length < 50) {
-//             console.log('done')
-//             appData.expenses[a] = b;
-//         } else {
-//             console.log('bad result');
-//             i--;
-//         }
-//         i++
-//     };
-
-    // let i = 0;
-    // while (i < 2) {
-    //     let a = prompt ("Введите обязательную статью расходов в этом месяце", ""),
-    //         b = prompt ("Во сколько обойдется?", "");
-    
-    //     if ( typeof(a)==='string' && typeof(a) != null && typeof(b) != null && a != "" && b != "" && a.length < 50) {
-    
-    //         console.log ("done");
-    
-    //         appData.expenses[a] = b;
-    //     } else {
-    //          console.log ("bad result");
-    //          i--;
-    //     }
-    
-    //     i++;
-    // }
-
-appData.moneyPerDay = appData.budget / 30;
-
-alert('Ваш ежедневный бюджет: ' + appData.moneyPerDay);
-
-if (appData.moneyPerDay < 1000) {
-    console.log('Минимальный уровень достатка');
-} else if (appData.moneyPerDay > 1000 && appData.moneyPerDay < 8000) {
-    console.log('Средний уровень достатка');
-} else if (appData.moneyPerDay > 8000) {
-    console.log('Высокий уровень достатка');
-} else {
-    console.log('Произошла ошибка!')
+        if ( (typeof(a)) === 'string' && (typeof(a)) != null && (typeof(b)) != null 
+        && a != '' && b != '' && a.length < 50) {
+            console.log('done')
+            appData.expenses[a] = b;
+        } else {
+            console.log('bad result');
+            i--;
+        };
+        
+    };
 }
+
+chooseExpenses();
+
+function detectDayBudget() {
+    appData.moneyPerDay = (appData.budget / 30).toFixed(1);
+    alert("Бюджет на 1 день составляет " + appData.moneyPerDay + "руб.");
+}
+detectDayBudget();
+
+function detectLevel() {
+    if (appData.moneyPerDay < 1000) {
+        alert('Минимальный уровень достатка');
+    } else if (appData.moneyPerDay > 1000 && appData.moneyPerDay < 8000) {
+        alert('Средний уровень достатка');
+    } else if (appData.moneyPerDay > 8000) {
+        alert('Высокий уровень достатка');
+    } else {
+        alert('Произошла ошибка!')
+    }
+}
+detectLevel();
+
+function checkSavings() {
+    if (appData.savings == true) {
+        let save = +prompt("Какова сумма накоплений?"),
+            percent = +prompt("Под какой процент?");
+
+        appData.monthIncome = (save/100/12*percent).toFixed(1);
+        alert("Доход в месяц с вашего депозита: " + appData.monthIncome);    
+    }
+}
+checkSavings();
+
+function chooseOptExpenses() {
+    for (let y = 1; y <= 3; y++) {
+        let c = prompt("Статья необязательных расходов?", '');
+        appData.optionalExpenses[y] = c;
+        
+    }
+    console.log(appData.optionalExpenses);
+}
+chooseOptExpenses();
